@@ -97,13 +97,9 @@ Je vais travailler avec une **structure d'évènement simple** pour me concentre
 
 ```json
 {
-    // représente l'id unique de l'évènement produit.
     "eventId": "5ece8acbf9269864aea2c080",
-    // représente l'heure exacte à laquelle l'évènement a été produit
     "eventDateTime": "2020-05-28T10:00:00.000+02:00",
-    // représente "l'acteur" (prospect, client, etc.). Selon le type de parcours, cela peut être un numéro de téléphone, ou un mail. Voir une IP qu'on pourrait rematcher avec un client connu si nous gardions cette information
     "actorId": "julien@axa.fr",
-    // représente le marqueur d'activité (dans cet exemple: start ou stop)
     "state": "start"
 }
 ```
@@ -153,7 +149,7 @@ docker run --tty --mount type=bind,source="$(pwd)"/input,target=/input --network
 
 Dans KafkaHQ (localhost:8080), je retrouve bien mes 9 évènements correctement partitionnés mais - et c'est logique - l'heure du message kafka n'est pas l'heure du message contenu dans le json:
 
-<img src="assets_md/hq1.png" alt="hq1 " style="zoom:40%;" />
+<img src="assets_md/hq1.png" alt="hq1 " style="zoom:10%;" />
 
 Evidemment, avec kafkacat j'ai tout injecté en 1 bloc, mais cette problématique est intéressante à traiter puisqu'elle reflète le scénario de la vraie vie où **un évènement métier peut techniquement arriver en retard**. D'où l'**intérêt** dans nos applications de streaming de travailler avec **l'heure définie dans l'objet métier**.
 
