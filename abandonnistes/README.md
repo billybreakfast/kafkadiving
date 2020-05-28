@@ -97,14 +97,10 @@ Je vais travailler avec une **structure d'évènement simple** pour me concentre
 
 ```json
 {
-    // représente l'id unique de l'évènement produit.
     "eventId": "5ece8acbf9269864aea2c080",
-    // représente l'heure exacte à laquelle l'évènement a été produit
     "eventDateTime": "2020-05-28T10:00:00.000+02:00",
-    // représente "l'acteur" (prospect, client, etc.). Selon le type de parcours, cela peut être un numéro de téléphone, ou un mail. Voir une IP qu'on pourrait rematcher avec un client connu si nous gardions cette information
     "actorId": "julien@axa.fr",
-    // représente le marqueur d'activité (dans cet exemple: start ou stop)
-    "state": "start"
+    "state": "start|stop"
 }
 ```
 
