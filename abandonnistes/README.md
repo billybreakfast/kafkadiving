@@ -153,7 +153,7 @@ docker run --tty --mount type=bind,source="$(pwd)"/input,target=/input --network
 
 Dans KafkaHQ (localhost:8080), je retrouve bien mes 9 évènements correctement partitionnés mais - et c'est logique - l'heure du message kafka n'est pas l'heure du message contenu dans le json:
 
-<img src="assets_md/hq1.png" alt="hq1 " style="zoom:40%;" />
+<img src="assets_md/hq1.png" alt="hq1 "/>
 
 Evidemment, avec kafkacat j'ai tout injecté en 1 bloc, mais cette problématique est intéressante à traiter puisqu'elle reflète le scénario de la vraie vie où **un évènement métier peut techniquement arriver en retard**. D'où l'**intérêt** dans nos applications de streaming de travailler avec **l'heure définie dans l'objet métier**.
 
