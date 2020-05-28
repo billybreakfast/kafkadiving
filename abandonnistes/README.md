@@ -109,7 +109,7 @@ Mon topic Kafka d'entrée s'appellera: **userActivity**. Je choisis arbitraireme
 ![schema2](assets_md/schema2.png)
 
 - Le cas jaune est intéressant puisqu'il représente un faux-positif d'abandonniste. Pour le moment j'accepte ce faux-positif et considère qu'il est le fruit d'un Δmax mal calibré. 
-- Le cas violent représente un acteur qui n'est pas revenu en arrière et qui a terminé son parcours dans les temps. Il n'est pas abandonniste.
+- Le cas violet représente un acteur qui n'est pas revenu en arrière et qui a terminé son parcours dans les temps. Il n'est pas abandonniste.
 - Le cas orange représente un acteur qui a fait un retour arrière et n'a pas terminé son parcours. Il est abandonniste.
 - Le cas vert représente un acteur qui a fait un retour arrière et qui a terminé son parcours dans les temps. Il n'est pas abandonniste puisque le Δmax a été réinitialisé lors de son retour arrière.
 
