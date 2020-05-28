@@ -12,7 +12,7 @@
 
 La question à laquelle je souhaite répondre ici est: **comment les détecter?**
 
-La notion de temps est évidemment essentielle dans ce sujet. Quand un client entre sur un parcours métier, il va prendre plus ou moins longtemps pour aller au bout. Cela peut dépendre de tout un tas de critère (complexité du parcours, appétences du client au digital, etc. ). 
+La notion de temps est évidemment essentielle dans ce sujet. Quand un client entre sur un parcours métier, il va prendre plus ou moins longtemps pour aller au bout. Cela peut dépendre de tout un tas de critères (complexité du parcours, appétence du client au digital, etc. ). 
 
 Décider de **la durée** à partir de laquelle un client doit être considéré comme abandonniste n'est donc pas une mesure universelle mais bien **une propriété métier**, initialement définie en phase de build[^1].
 
@@ -52,11 +52,11 @@ En choisissant par exemple un **Δmax assez large**, on peut imaginer se prémun
 
 Dans le cadre de ce travail de recherche, je vais imaginer un **parcours métier complexe** à plusieurs étapes.
 
-La **première étape** lancera le chronomètre du Δmax en envoyant un **évènement start**. La **sortie du parcours** déclenchera un **évènement stop**. Pour ajouter un peu de "réalité opérationnelle", je vais simuler des "**retours-arrière**" parcours où certaines étapes critiques peuvent réinitialiser le chrono du Δmax en déclenchant elle-même un **évènement start**.
+La **première étape** lancera le chronomètre du Δmax en envoyant un **évènement start**. La **sortie du parcours** déclenchera un **évènement stop**. Pour ajouter un peu de "réalité opérationnelle", je vais simuler des "**retours-arrière**" parcours où certaines étapes critiques peuvent réinitialiser le chrono du Δmax en déclenchant elles-mêmes un **évènement start**.
 
 
 
-**Kafka Stream** propose différentes façon de modéliser des évènements dans le temps. L'une des façons nous inspire ici, puisqu'elle représente assez bien la notion d'activité dans une parcours utilisateur: la **window session**
+**Kafka Stream** propose différentes façons de modéliser des évènements dans le temps. L'une de ces façons nous inspire ici, puisqu'elle représente assez bien la notion d'activité dans un parcours utilisateur: la **window session**
 
 ![ksql-session-windows](assets_md/ksql-session-windows.gif)
 
@@ -104,11 +104,11 @@ Je vais travailler avec une **structure d'évènement simple** pour me concentre
 }
 ```
 
-Mon topic Kafka d'entrée s'appellera: **userActivity**. Je choisis arbitrairement un Δmax de 5 minutes, chaque utilisateur est représenté par une couleur dont voici la représentation de mon jeu de données:
+Mon topic Kafka d'entrée s'appelle **userActivity**. Je choisis arbitrairement un Δmax de 5 minutes, et chaque utilisateur est représenté par une couleur dont voici la représentation dans mon jeu de données:
 
 ![schema2](assets_md/schema2.png)
 
-- Le cas jaune est intéressant puisqu'il représente un faux-positif d'abandonniste. Pour le moment j'accepte ce faux-positif et considère qu'il est le fruit d'un Δmax mal calibré. 
+- Le cas jaune est intéressant puisqu'il représente un faux-positif d'abandonniste. Pour le moment, j'accepte ce faux-positif et considère qu'il est le fruit d'un Δmax mal calibré. 
 - Le cas violet représente un acteur qui n'est pas revenu en arrière et qui a terminé son parcours dans les temps. Il n'est pas abandonniste.
 - Le cas orange représente un acteur qui a fait un retour arrière et n'a pas terminé son parcours. Il est abandonniste.
 - Le cas vert représente un acteur qui a fait un retour arrière et qui a terminé son parcours dans les temps. Il n'est pas abandonniste puisque le Δmax a été réinitialisé lors de son retour arrière.
@@ -121,7 +121,7 @@ Voilà la topologie que vais construire:
 
 
 
-Je représente mon topic d'entrée par un stream appelé stream-userActivty. A partir de ce stream, je construis un agrégat sur le temps que j'appelle table-leaverDetection. Cet agrégat est lui-même représenté par un topic leaverDetection.
+Je représente mon topic d'entrée par un stream appelé stream_userActivty. A partir de ce stream, je construis un agrégat sur le temps que j'appelle table_leaverDetection. Cet agrégat est lui-même représenté par un topic leaverDetection.
 
 
 
@@ -147,7 +147,7 @@ docker run --tty --mount type=bind,source="$(pwd)"/input,target=/input --network
 
 
 
-Dans KafkaHQ (localhost:8080), je retrouve bien mes 9 évènements correctement partitionnés mais - et c'est logique - l'heure du message kafka n'est pas l'heure du message contenu dans le json:
+Dans KafkaHQ (localhost:8080), je retrouve bien mes 9 évènements correctement partitionnés mais - et c'est logique - l'heure du message kafka n'est pas l'heure du message contenue dans le json:
 
 <img src="assets_md/hq1.png" alt="hq1 "/>
 
@@ -232,7 +232,7 @@ Press CTRL-C to interrupt
 
 
 
-**Je retrouve donc** bien mon acteur **orange** qui est un **abandonniste**, et le **jaune** qui est un **faux positif** et je vois bien les deux windowsession.
+**Je retrouve donc** bien mon acteur **orange** qui est un **abandonniste**, et le **jaune** qui est un **faux positif** dont je vois bien les deux window sessions.
 
 
 
@@ -256,7 +256,7 @@ SELECT
 Press CTRL-C to interrupt
 ```
 
-**Seul orange sort ici en résultat.**
+**Seul orange est encore abandonniste.** Le résultat est cohérent.
 
 
 
