@@ -1,0 +1,9 @@
+yellow:{"eventId":"5ece8a2c080","eventDateTime":"2020-05-28T10:00:00.000+02:00","actorId":"yellow","state":"start"}
+green:{"eventId":"qd065c08zdq","eventDateTime":"2020-05-28T10:02:00.000+02:00","actorId":"green","state":"start"}
+orange:{"eventId":"Jlj654qs13q","eventDateTime":"2020-05-28T10:05:00.000+02:00","actorId":"orange","state":"start"}
+green:{"eventId":"jklj82hkjHI","eventDateTime":"2020-05-28T10:06:00.000+02:00","actorId":"green","state":"start"}
+orange:{"eventId":"ds54654qsdF","eventDateTime":"2020-05-28T10:07:00.000+02:00","actorId":"orange","state":"start"}
+purple:{"eventId":"HJkljkjhd65","eventDateTime":"2020-05-28T10:08:00.000+02:00","actorId":"purple","state":"start"}
+yellow:{"eventId":"5d8SDds65as","eventDateTime":"2020-05-28T10:09:00.000+02:00","actorId":"yellow","state":"stop"}
+green:{"eventId":"LKJ5z6sqdDs","eventDateTime":"2020-05-28T10:10:00.000+02:00","actorId":"green","state":"stop"}
+purple:{"eventId":"nb9313dhLKJ","eventDateTime":"2020-05-28T10:13:00.000+02:00","actorId":"purple","state":"stop"}
