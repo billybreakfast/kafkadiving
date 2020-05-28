@@ -22,7 +22,7 @@ On peut en effet considérer que **pour chaque "acteur"** (prospect/client/etc.)
 
 
 
-<img src=".\assets_md\schema1.png" alt="schema1 " style="zoom:80%;" />
+<img src="assets_md/schema1.png" alt="schema1 " style="zoom:80%;" />
 
 
 
@@ -58,7 +58,7 @@ La **première étape** lancera le chronomètre du Δmax en envoyant un **évèn
 
 **Kafka Stream** propose différentes façon de modéliser des évènements dans le temps. L'une des façons nous inspire ici, puisqu'elle représente assez bien la notion d'activité dans une parcours utilisateur: la **window session**
 
-![ksql-session-windows](.\assets_md\ksql-session-windows.gif)
+![ksql-session-windows](assets_md/ksql-session-windows.gif)
 
 
 
@@ -110,7 +110,7 @@ Je vais travailler avec une **structure d'évènement simple** pour me concentre
 
 Mon topic Kafka d'entrée s'appellera: **userActivity**. Je choisis arbitrairement un Δmax de 5 minutes, chaque utilisateur est représenté par une couleur dont voici la représentation de mon jeu de données:
 
-![schema2](.\assets_md\schema2.png)
+![schema2](assets_md/schema2.png)
 
 - Le cas jaune est intéressant puisqu'il représente un faux-positif d'abandonniste. Pour le moment j'accepte ce faux-positif et considère qu'il est le fruit d'un Δmax mal calibré. 
 - Le cas violent représente un acteur qui n'est pas revenu en arrière et qui a terminé son parcours dans les temps. Il n'est pas abandonniste.
@@ -121,7 +121,7 @@ Mon topic Kafka d'entrée s'appellera: **userActivity**. Je choisis arbitraireme
 
 Voilà la topologie que vais construire:
 
-![schema3](.\assets_md\schema3.png)
+![schema3](assets_md/schema3.png)
 
 
 
@@ -153,7 +153,7 @@ docker run --tty --mount type=bind,source="$(pwd)"/input,target=/input --network
 
 Dans KafkaHQ (localhost:8080), je retrouve bien mes 9 évènements correctement partitionnés mais - et c'est logique - l'heure du message kafka n'est pas l'heure du message contenu dans le json:
 
-<img src=".\assets_md\hq1.png" alt="hq1 " style="zoom:40%;" />
+<img src="assets_md/hq1.png" alt="hq1 " style="zoom:40%;" />
 
 Evidemment, avec kafkacat j'ai tout injecté en 1 bloc, mais cette problématique est intéressante à traiter puisqu'elle reflète le scénario de la vraie vie où **un évènement métier peut techniquement arriver en retard**. D'où l'**intérêt** dans nos applications de streaming de travailler avec **l'heure définie dans l'objet métier**.
 
